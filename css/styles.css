@@ -1,3 +1,39 @@
 #roverCommandLine.container{
-	/*display: none;*/
+	display: none;
+}
+
+.btn-warning {
+	color: #fff;
+}
+
+div.radio-group {
+	display: -webkit-inline-box;
+}
+
+input[type=radio] { 
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
+
+div.radioWrapper {
+	border: 1px solid #000;
+	margin: 10px;
+	text-align: center;
+}
+
+.active {
+	background-color: #007bff;
+	color: #fff;
+}
+
+
+div#roverReport {
+	margin: 3rem auto;
+}
+
+header {
+	padding: 2rem 0;
 }

@@ -12,8 +12,11 @@
 </head>
 <body>
 
-	<!-- Create Rovers -->
+	<header class="container text-center">
+		<h3>Steven Jackson - Backend Test</h3>
+	</header>
 
+	<!-- Create Rovers -->
 	<div class="container" id="createRover">
 		<form id="createRover">
 			
@@ -61,29 +64,39 @@
 	<div class="container" id="roverCommandLine">
 		<form id="formRoverCommandLine">
 
-			<!-- Dynamically Created Radion Buttons -->
-			<div class="radio-group"></div>
-			<!-- End Dynamically Created Radion Buttons -->
+			<div class="row">
+
+				<span>Please Select a Rover to Move:</span>
+				<!-- Dynamically Created Radion Buttons -->
+				<div class="radio-group"></div>
+				<!-- End Dynamically Created Radion Buttons -->
+			</div>
 
 			<div class="form-group">
-				<label for="exampleInputEmail1">Rover Command Line</label>
+				<label for="roverCommandLine">Rover Command Line</label>
 				<input type="text" class="form-control" name="roverCommandLine" id="roverCommandLine" placeholder="Enter Rover Command">
-				<small id="roverStatus" class="form-text text-muted"></small>
-				<small id="currentPositioning" class="form-text text-muted"></small>
-				<small id="potentialPositioning" class="form-text text-muted"></small>
+				<div class="roverCommandLineReport">
 			</div>
-			
-			<button type="button" name="runCommand" class="btn btn-primary">Run Command</button>
-			<button type="button" name="roverReport" class="btn btn-success">Rover Report</button>
-			<button type="button" name="reset" class="btn btn-danger">Reset</button>
-		</form>
-	</div>
-	<!-- End Rover Command Line -->
+		</div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<button type="button" name="runCommand" class="btn btn-primary">Run Command</button>
+		<button type="button" name="roverReport" class="btn btn-success">Rover Report</button>
+		<button type="button" name="clear" class="btn btn-info">Clear</button>
+		<button type="button" name="reset" class="btn btn-danger">Reset</button>
+	</form>
+</div>
+<!-- End Rover Command Line -->
 
-	<script src="./js/model_mars_rover.js"></script>
-	<script src="./js/controller_mars_rover.js"></script>
-	<script src="./js/view_mars_rover.js"></script>
+
+<div id="roverReport" class="container">
+	
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script src="./js/model_mars_rover.js"></script>
+<script src="./js/controller_mars_rover.js"></script>
+<script src="./js/view_mars_rover.js"></script>
 </body>
 </html>

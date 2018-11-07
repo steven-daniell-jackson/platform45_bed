@@ -1,14 +1,9 @@
+// Declare Objects Array
 var allRoversObjArray = [];
 
-var firstRover = new roverObject();
-var secondRover = new roverObject();
-
-firstRover.name = 'First Rover';
-secondRover.name = 'Second Rover';
-
 // Debug Objects
-// allRoversObjArray.push(firstRover);
-// allRoversObjArray.push(secondRover);
+// firstRover = createRoverObj('First', 0, 0, 0, 'North');
+// secondRover = createRoverObj('Second', 1, 4, 180, 'South');
 
 // New Rover Functions
 function createRoverObj(name, x, y, state, facingDirection) {
@@ -17,15 +12,7 @@ function createRoverObj(name, x, y, state, facingDirection) {
 }
 
 
-
-
-// Command Line Functions
-
-function getCurrentRoverIndex(){
-	var currentRover = $("input[name='rovers']");
-	return currentRover.index(currentRover.filter(':checked'));
-}
-
+// Do Command or throw error
 function doCommand(currentRoverObject){
 
 	var currentCommand = $("input[name='roverCommandLine']").val();
@@ -33,40 +20,60 @@ function doCommand(currentRoverObject){
 	switch (currentCommand) { 
 		case 'L': 
 		currentRoverObject.setState(-90);
-		roverStatusReport(currentRoverObject.name, 'L', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'L', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection(), currentRoverObject.nextPostion());
 		break;
 		case 'R': 
 		currentRoverObject.setState(90);
-		roverStatusReport(currentRoverObject.name, 'R', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'R', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection(), currentRoverObject.nextPostion());
 		break;
 		case "M": 
 		currentRoverObject.moveForward();
-		roverStatusReport(currentRoverObject.name, 'M', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'M', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection(), currentRoverObject.nextPostion());
 		break;
 		default:
 		alert('ERROR: Only L(Left), R(Right) and M(Move) are accepted');
 	}
-		console.log(currentRoverObject);
+	console.log(currentRoverObject);
 }
 
-function roverStatusReport (roverName, command, position, direction){
 
-	$('#currentPositioning').html(roverName + ' is currently located at ' + position + ' and facing ' + direction);
+// Generate a Rover Report
+function generateRoverReport(){
+	$('div#roverReport').empty();
+	$('div#roverReport').append("<h2>Rover Report:</h2>");
 
-	switch (command) { 
-		case 'L': 
-		$('#roverStatus').html(roverName + ' has Rotated Left by 90 Degrees');
-		break;
-		case 'R': 
-		$('#roverStatus').html(roverName + ' has Rotated Right by 90 Degrees');
-		break;
-		case "M": 
-		$('#roverStatus').html(roverName + ' has moved forward');
-		break;
-		default:
-		alert('ERROR: How did you get here?');
-	}
+	allRoversObjArray.forEach(function(rover) {
+		var reportWrapper = document.createElement("div");
+		reportWrapper.className = 'reportWrapper alert alert-primary col-md-12 col-sm-4';
 
-	
+		var roverNameHTML = '<h3> Rover Name: ' + rover.name +'</h3>';
+		var locationHTML = 'Currently Located at ' + rover.x + ',' + rover.y + ' and facing ' + rover.getFacingDirection();
+
+		$('div#roverReport').append(reportWrapper);
+
+		$('div.reportWrapper:last').append(roverNameHTML).append(locationHTML);
+
+	});
+
 }
 
+
+// Generate a Rover Radio Buttons
+function generateRoverRadioButtons(){
+
+	allRoversObjArray.forEach(function(rover) {
+
+		var radioWrapper = document.createElement("div");
+		radioWrapper.addEventListener("click", setActiveRover);
+		radioWrapper.className = 'radioWrapper col-md-12 col-sm-4';
+
+		var inputHTML = '<input class="form-check-input" type="radio" name="rovers" id="' + rover.name + '">';
+		var labelHTML = '<label class="form-check-label" for="' + rover.name + '">' + rover.name + '</label>'
+
+		$('div.radio-group').append(radioWrapper);
+
+		$('div.radioWrapper:last').append(inputHTML).append(labelHTML);
+
+	});
+
+}
