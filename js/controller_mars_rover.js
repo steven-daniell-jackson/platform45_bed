@@ -1,29 +1,26 @@
+var allRoversObjArray = [];
+
 var firstRover = new roverObject();
 var secondRover = new roverObject();
 
 firstRover.name = 'First Rover';
 secondRover.name = 'Second Rover';
 
-$(function() {
 
-	$('button[type="submit"]').click(function(e){
-		e.preventDefault();
-		var currentRoverIndex = getCurrentRoverIndex();
+allRoversObjArray.push(firstRover);
+allRoversObjArray.push(secondRover);
 
-		switch (currentRoverIndex) { 
-			case 0: 
-			currentState =  doCommand(firstRover);
-			break;
-			case 1: 
-			currentState =  doCommand(secondRover);
-			break;
-			default:
-			alert('ERROR:  How did you even get here?');
-		}
+// New Rover Functions
 
-	});
+function createRoverObj(name, startingPosition, facingDirection) {
+	var newRover = new roverObject(name, 0,0, 0, facingDirection);
+	allRoversObjArray.push(newRover);
+}
 
-});
+
+
+
+// Command Line Functions
 
 function getCurrentRoverIndex(){
 	var currentRover = $("input[name='rovers']");
@@ -32,38 +29,45 @@ function getCurrentRoverIndex(){
 
 function doCommand(currentRoverObject){
 
-	console.log(currentRoverObject);
-
 	var currentCommand = $("input[name='roverCommandLine']").val();
 
 	switch (currentCommand) { 
 		case 'L': 
 		currentRoverObject.setState(-90);
-		currentRoverObject.setFacingDirection();
-		roverStatusReport(currentRoverObject.name);
-		roverPositionReport(currentRoverObject.name, currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'L', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
 		break;
 		case 'R': 
 		currentRoverObject.setState(90);
-		currentRoverObject.setFacingDirection();
-		roverStatusReport(currentRoverObject.name);
-		roverPositionReport(currentRoverObject.name, currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'R', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
 		break;
 		case "M": 
 		currentRoverObject.moveForward();
-		currentRoverObject.setFacingDirection();
-		roverStatusReport(currentRoverObject.name);
-		roverPositionReport(currentRoverObject.name, currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
+		roverStatusReport(currentRoverObject.name, 'M', currentRoverObject.getPostion(), currentRoverObject.getFacingDirection());
 		break;
 		default:
-			// alert('ERROR: Only L(Left), R(Right) and M(Move) are accepted');
-		}
+		alert('ERROR: Only L(Left), R(Right) and M(Move) are accepted');
 	}
+		console.log(currentRoverObject);
+}
 
-	function roverStatusReport (roverName){
+function roverStatusReport (roverName, command, position, direction){
+
+	$('#currentPositioning').html(roverName + ' is currently located at ' + position + ' and facing ' + direction);
+
+	switch (command) { 
+		case 'L': 
 		$('#roverStatus').html(roverName + ' has Rotated Left by 90 Degrees');
+		break;
+		case 'R': 
+		$('#roverStatus').html(roverName + ' has Rotated Right by 90 Degrees');
+		break;
+		case "M": 
+		$('#roverStatus').html(roverName + ' has moved forward');
+		break;
+		default:
+		alert('ERROR: How did you get here?');
 	}
 
-	function roverPositionReport (roverName, position, direction){
-		$('#currentPositioning').html(roverName + ' is currently located at ' + position + ' and facing ' + direction);
-	}
+	
+}
+
