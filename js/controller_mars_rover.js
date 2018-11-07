@@ -6,14 +6,13 @@ var secondRover = new roverObject();
 firstRover.name = 'First Rover';
 secondRover.name = 'Second Rover';
 
-
-allRoversObjArray.push(firstRover);
-allRoversObjArray.push(secondRover);
+// Debug Objects
+// allRoversObjArray.push(firstRover);
+// allRoversObjArray.push(secondRover);
 
 // New Rover Functions
-
-function createRoverObj(name, startingPosition, facingDirection) {
-	var newRover = new roverObject(name, 0,0, 0, facingDirection);
+function createRoverObj(name, x, y, state, facingDirection) {
+	var newRover = new roverObject(name, x, y, state, facingDirection);
 	allRoversObjArray.push(newRover);
 }
 
